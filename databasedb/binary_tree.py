@@ -67,9 +67,9 @@ class BinaryNodeRef(ValueRef):
 
 
 class BinaryTree(LogicalBase):
-    node_ref_class = BinaryNodeRef
+    node_ref_class: BinaryNodeRef = BinaryNodeRef
 
-    def _get(self, node, key):
+    def _get(self, node: BinaryNode, key: str):
         while node is not None:
             if key < node.key:
                 node = self._follow(node.left_ref)
@@ -79,7 +79,7 @@ class BinaryTree(LogicalBase):
                 return self._follow(node.value_ref)
         raise KeyError
 
-    def _insert(self, node, key, value_ref):
+    def _insert(self, node: BinaryNode, key: str, value_ref: ValueRef) -> BinaryNodeRef:
         if node is None:
             new_node = BinaryNode(
                 self.node_ref_class(), key, value_ref, self.node_ref_class(), 1)
@@ -97,7 +97,7 @@ class BinaryTree(LogicalBase):
             new_node = BinaryNode.from_node(node, value_ref=value_ref)
         return self.node_ref_class(referent=new_node)
 
-    def _delete(self, node, key):
+    def _delete(self, node: BinaryNode, key: str) -> BinaryNodeRef:
         if node is None:
             raise KeyError
         elif key < node.key:
@@ -130,7 +130,7 @@ class BinaryTree(LogicalBase):
                 return node.right_ref
         return self.node_ref_class(referent=new_node)
 
-    def _find_max(self, node):
+    def _find_max(self, node: BinaryNode) -> BinaryNode:
         while True:
             next_node = self._follow(node.right_ref)
             if next_node is None:
