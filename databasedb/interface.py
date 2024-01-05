@@ -7,18 +7,18 @@ class DatabaseDB(object):
         self._storage = Storage(f)
         self._tree: BinaryTree = BinaryTree(self._storage)
 
-    def _assert_not_closed(self):
+    def _assert_not_closed(self) -> None:
         if self._storage.closed:
             raise ValueError('Database closed.')
 
-    def close(self):
+    def close(self) -> None:
         self._storage.close()
 
-    def commit(self):
+    def commit(self) -> None:
         self._assert_not_closed()
         self._tree.commit()
 
-    def __getitem__(self, key):
+    def __getitem__(self, key: str) -> str:
         self._assert_not_closed()
         return self._tree.get(key)
 
