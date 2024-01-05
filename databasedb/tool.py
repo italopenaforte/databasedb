@@ -9,14 +9,14 @@ BAD_VERB = 2
 BAD_KEY = 3
 
 
-def usage():
+def usage() -> None:
     print("Usage:", file=sys.stderr)
     print("\tpython -m databasedb.tool DBNAME get KEY", file=sys.stderr)
     print("\tpython -m databasedb.tool DBNAME set KEY VALUE", file=sys.stderr)
     print("\tpython -m databasedb.tool DBNAME delete KEY", file=sys.stderr)
 
 
-def main(argv):
+def main(argv: str) -> int:
     if not (4 <= len(argv) <= 5):
         usage()
         return BAD_ARGS
